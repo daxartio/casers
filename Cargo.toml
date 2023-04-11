@@ -1,0 +1,13 @@
+[package]
+name = "casers"
+version = "0.0.1"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "casers"
+crate-type = ["cdylib"]
+
+[dependencies]
+convert_case = "0.6.0"
+pyo3 = "0.18.1"

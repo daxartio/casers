@@ -1,0 +1,148 @@
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.0.1"
+tag_format = "$version"
+version_files = [
+    "casers/_version.py",
+    "Cargo.toml:version",
+    "pyproject.toml:version"
+]
+bump_message = "chore(release): version $current_version → $new_version"
+update_changelog_on_bump = true
+
+[tool.poetry]
+name = "casers"
+version = "0.0.1"
+description = ""
+authors = ["Danil Akhtarov <daxartio@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/daxartio/casers"
+homepage = "https://pypi.org/project/casers"
+keywords = []
+
+[tool.poetry.scripts]
+casers = 'casers.cli.app:run'
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+mypy = "^1.1.1"
+maturin = "^0.14.17"
+pytest = "^7.2.2"
+pytest-asyncio = "^0.20.3"
+pytest-cov = "^4.0.0"
+pytest-deadfixtures = "^2.2.1"
+pytest-mock = "^3.10.0"
+ruff = "^0.0.255"
+toml = "^0.10.2"
+
+[tool.poetry.group.git.dependencies]
+commitizen = "^2.42.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "maturin>=0.14,<0.15"]
+build-backend = "maturin"
+
+[project]
+name = "casers"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+license = {file = "LICENSE"}
+readme = "README.md"
+authors = [
+  {email = "daxartio@gmail.com"},
+  {name = "Danil Akhtarov"}
+]
+
+[project.urls]
+repository = "https://github.com/daxartio/casers"
+homepage = "https://pypi.org/project/casers"
+
+[project.scripts]
+casers = 'casers.cli.app:run'
+
+[tool.maturin]
+module-name = "casers._casers"
+features = ["pyo3/extension-module"]
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[tool.coverage.run]
+omit = ["tests/*", "**/__main__.py", "**/.venv/*", "**/site-packages/*", "casers/cli/*"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 100
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+addopts = "--strict-markers --showlocals --verbosity 2"
+log_level = "DEBUG"
+
+[tool.ruff]
+select = [
+    "F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "D",
+    "YTT",
+    "S",
+    "BLE",
+    "B",
+    "A",
+    "C40",
+    "DTZ",
+    "T10",
+    "EM",
+    "ISC",
+    "ICN",
+    "PIE",
+    "T20",
+    "PT",
+    "Q",
+    "RET",
+    "SIM",
+    "TID",
+    "ARG",
+    "ERA",
+    "PD",
+    "RUF",
+]
+ignore = [
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "D203",
+    "D213",
+    "EM101",
+]
+exclude = []
+extend-exclude = ["casers/_casers.pyi", "tests/*"]
