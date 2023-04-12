@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-CODE = casers tests
+CODE = casers tests benches
 POETRY_RUN = poetry run
 TEST = $(POETRY_RUN) pytest $(args)
 
@@ -16,7 +16,7 @@ install-poetry:  ## Install poetry
 
 .PHONY: install
 install:  ## Install dependencies
-	poetry install
+	poetry install -E all
 
 .PHONY: install-docs
 install-docs:  ## Install docs dependencies
@@ -24,11 +24,11 @@ install-docs:  ## Install docs dependencies
 
 .PHONY: publish
 publish:  ## Publish package
-	@maturin upload
+	@$(POETRY_RUN) maturin upload
 
 .PHONY: build-rs
 build-rs:  ## maturin develop
-	poetry run maturin develop
+	$(POETRY_RUN) maturin develop
 
 .PHONY: test
 test:  ## Test with coverage
@@ -68,3 +68,7 @@ clean:  ## Clean
 	rm -rf site || true
 	rm -rf dist || true
 	rm -rf htmlcov || true
+
+.PHONY: benchmark
+benchmark:  ## Benchmark
+	$(POETRY_RUN) python -m benches.main

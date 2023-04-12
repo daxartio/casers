@@ -22,7 +22,20 @@ poetry add casers
 ## Usage
 
 ```python
-from casers import __version__
+from casers import snake_to_camel
+
+snake_to_camel("some_text") == "someText"
+# True
+```
+
+```python
+from casers.pydantic import SnakeToCamelAliases
+
+class Model(SnakeToCamelAliases):
+    snake_case: str
+
+Model.parse_obj({"snakeCase": "value"}).snake_case == "value"
+# True
 ```
 
 ## License
