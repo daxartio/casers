@@ -27,8 +27,16 @@ publish:  ## Publish package
 	@$(POETRY_RUN) maturin upload
 
 .PHONY: build-rs
-build-rs:  ## maturin develop
+build-rs:  ## Build .so files
 	$(POETRY_RUN) maturin develop
+
+.PHONY: format-rs
+format-rs:  ## Formatting rs code
+	cargo fmt
+
+.PHONY: lint-rs
+lint-rs:  ## Check rs code
+	cargo check
 
 .PHONY: test
 test:  ## Test with coverage

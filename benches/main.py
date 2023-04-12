@@ -14,7 +14,7 @@ def py_snake_to_camel(string: str) -> str:
 
 
 if __name__ == "__main__":
-    text = "hello_world"
+    text = "hello_world" * 100
     echo(timeit(lambda: snake_to_camel(text), number=10000), "casers.snake_to_camel")
     echo(timeit(lambda: to_camel(text), number=10000), "casers.to_camel")
     echo(timeit(lambda: py_snake_to_camel(text), number=10000), "python")

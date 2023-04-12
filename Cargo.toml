@@ -9,5 +9,4 @@ name = "casers"
 crate-type = ["cdylib"]
 
 [dependencies]
-convert_case = "0.6.0"
 pyo3 = "0.18.1"

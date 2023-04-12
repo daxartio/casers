@@ -24,7 +24,7 @@ jobs:
         run: make build-rs
 
       - name: Run linters
-        run: make lint
+        run: make lint lint-rs
 
       - name: Run test
         run: make test
