@@ -1,6 +1,6 @@
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.2.0"
+version = "0.3.0"
 tag_format = "$version"
 version_files = [
     "casers/_version.py",
@@ -12,7 +12,7 @@ update_changelog_on_bump = true
 
 [tool.poetry]
 name = "casers"
-version = "0.2.0"
+version = "0.3.0"
 description = ""
 authors = ["Danil Akhtarov <daxartio@gmail.com>"]
 license = "MIT"
