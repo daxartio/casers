@@ -1,6 +1,6 @@
 import pytest
 
-from casers import to_camel, snake_to_camel
+from casers import to_camel
 
 
 @pytest.mark.parametrize(
@@ -14,15 +14,3 @@ from casers import to_camel, snake_to_camel
 )
 def test_to_camel(text, expected):
     assert to_camel(text) == expected
-
-
-@pytest.mark.parametrize(
-    ("text", "expected"),
-    [
-        ("some-text", "some-text"),
-        ("some text", "some text"),
-        ("some_text", "someText"),
-    ],
-)
-def test_snake_to_camel(text, expected):
-    assert snake_to_camel(text) == expected

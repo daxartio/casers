@@ -1,4 +1,4 @@
-from ._casers import snake_to_camel, to_camel
+from ._casers import to_camel, to_snake
 from ._version import __version__
 
-__all__ = ("__version__", "to_camel", "snake_to_camel")
+__all__ = ("__version__", "to_camel", "to_snake")

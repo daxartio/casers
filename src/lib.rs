@@ -2,8 +2,8 @@ use pyo3::prelude::*;
 
 /// Convert to camel case.
 #[pyfunction]
-fn to_camel(s: String) -> PyResult<String> {
-    let mut result = String::new();
+fn to_camel(s: &str) -> PyResult<String> {
+    let mut result = String::with_capacity(s.len());
     let mut capitalize_next = false;
     for c in s.chars() {
         if c == ' ' || c == '_' || c == '-' {
@@ -20,21 +20,27 @@ fn to_camel(s: String) -> PyResult<String> {
     Ok(result)
 }
 
-/// Convert from snake to camel case.
+/// Convert to snake case.
 #[pyfunction]
-fn snake_to_camel(s: &str) -> PyResult<String> {
-    let mut result = String::new();
-    let mut capitalize_next = false;
-    for c in s.chars() {
-        if c == '_' {
-            capitalize_next = true;
-        } else {
-            if capitalize_next {
-                result.push(c.to_ascii_uppercase());
-                capitalize_next = false;
-            } else {
-                result.push(c);
+fn to_snake(s: &str) -> PyResult<String> {
+    let mut result = String::with_capacity(s.len());
+    let mut upper_count = 0;
+    for (i, c) in s.chars().enumerate() {
+        if c.is_uppercase() {
+            upper_count += 1;
+            if i > 0 && upper_count < 2 {
+                result.push('_');
             }
+            result.push(c.to_ascii_lowercase());
+        } else {
+            if upper_count > 1 {
+                if let Some(last_c) = result.pop() {
+                    result.push('_');
+                    result.push(last_c);
+                }
+            }
+            upper_count = 0;
+            result.push(c);
         }
     }
     Ok(result)
@@ -44,6 +50,6 @@ fn snake_to_camel(s: &str) -> PyResult<String> {
 #[pymodule]
 fn _casers(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(to_camel, m)?)?;
-    m.add_function(wrap_pyfunction!(snake_to_camel, m)?)?;
+    m.add_function(wrap_pyfunction!(to_snake, m)?)?;
     Ok(())
 }
