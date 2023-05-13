@@ -6,6 +6,7 @@ from casers import to_camel
 @pytest.mark.parametrize(
     ("text", "expected"),
     [
+        ("", ""),
         ("Some-text", "someText"),
         ("some-text", "someText"),
         ("some text", "someText"),

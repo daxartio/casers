@@ -2,7 +2,7 @@ import re
 from timeit import timeit
 from typing import Any
 
-from casers import to_camel, to_snake
+from casers import to_camel, to_kebab, to_snake
 
 
 def echo(*args: Any) -> None:
@@ -57,3 +57,8 @@ if __name__ == "__main__":
     text = "helloWorld" * 100
     echo(timeit(lambda: to_snake(text), number=number), "rust.to_snake")
     echo(timeit(lambda: py_to_snake(text), number=number), "python.py_to_snake")
+    echo(timeit(lambda: to_kebab(text), number=number), "rust.to_kebab")
+    echo(
+        timeit(lambda: py_to_snake(text).replace("_", "-"), number=number),
+        "python.to_kebab",
+    )
