@@ -51,6 +51,10 @@ True
 
 ### pydantic
 
+```
+pip install "casers[pydantic]"
+```
+
 The package supports for pydantic 1 and 2 versions
 
 ```python
