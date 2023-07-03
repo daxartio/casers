@@ -49,15 +49,19 @@ True
 
 ```
 
+### pydantic
+
+The package supports for pydantic 1 and 2 versions
+
 ```python
 >>> from casers.pydantic import CamelAliases
 
 >>> class Model(CamelAliases):
 ...     snake_case: str
 
->>> Model.parse_obj({"snakeCase": "value"}).snake_case == "value"
+>>> Model.model_validate({"snakeCase": "value"}).snake_case == "value"
 True
->>> Model.parse_raw('{"snakeCase": "value"}').snake_case == "value"
+>>> Model.model_validate_json('{"snakeCase": "value"}').snake_case == "value"
 True
 
 ```
