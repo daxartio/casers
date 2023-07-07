@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,6 +25,24 @@ jobs:
 
       - name: Run linters
         run: make lint lint-rs
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ['3.7', '3.8', '3.9', '3.10', '3.11']
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.version }}
+
+      - name: Install python dependencies
+        run: make install-poetry install
+
+      - name: Maturin
+        run: make build-rs
 
       - name: Run test
         run: make test
