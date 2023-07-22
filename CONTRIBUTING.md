@@ -18,6 +18,12 @@ make install
 
 ### Run tests
 
+First of all you need to build Rust code
+
+```
+make build-rs
+```
+
 ```
 make test
 ```
@@ -26,12 +32,20 @@ make test
 
 ```
 make format
+make format-rs
 ```
 
 ### Lint
 
 ```
 make lint
+make lint-rs
+```
+
+### Benches
+
+```
+make benchmark
 ```
 
 ## Release

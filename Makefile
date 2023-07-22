@@ -31,11 +31,11 @@ build-rs:  ## Build .so files
 	$(POETRY_RUN) maturin develop
 
 .PHONY: format-rs
-format-rs:  ## Formatting rs code
+format-rs:  ## Formatting Rust code
 	cargo fmt
 
 .PHONY: lint-rs
-lint-rs:  ## Check rs code
+lint-rs:  ## Check Rust code
 	cargo check
 
 .PHONY: test
