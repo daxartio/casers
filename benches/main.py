@@ -1,15 +1,10 @@
 import re
 from timeit import timeit
-from typing import Any
 
 from casers import to_camel, to_kebab, to_snake
 
 
-def echo(*args: Any) -> None:
-    print(*args)  # noqa: T201
-
-
-def py_snake_to_camel(string: str) -> str:
+def snake_to_camel(string: str) -> str:
     components = string.split("_")
     return components[0] + "".join(word.title() for word in components[1:])
 
@@ -35,7 +30,7 @@ _CONVERSION_REXP = re.compile("(.)([A-Z][a-z]+)")
 _LOWER_TO_UPPER_CONVERSION_REXP = re.compile("([a-z0-9])([A-Z])")
 
 
-def py_to_snake(string: str) -> str:
+def re_to_snake(string: str) -> str:
     s1 = _CONVERSION_REXP.sub(r"\1_\2", string)
     return _LOWER_TO_UPPER_CONVERSION_REXP.sub(r"\1_\2", s1).lower()
 
@@ -43,22 +38,37 @@ def py_to_snake(string: str) -> str:
 if __name__ == "__main__":
     number = 10000
 
-    text = "hello_world" * 100
-    echo(timeit(lambda: to_camel(text), number=number), "rust.to_camel")
-    echo(
-        timeit(lambda: py_snake_to_camel(text), number=number),
-        "python.py_snake_to_camel",
-    )
-    echo(
-        timeit(lambda: pure_py_snake_to_camel(text), number=number),
-        "python.pure_py_snake_to_camel",
-    )
-
-    text = "helloWorld" * 100
-    echo(timeit(lambda: to_snake(text), number=number), "rust.to_snake")
-    echo(timeit(lambda: py_to_snake(text), number=number), "python.py_to_snake")
-    echo(timeit(lambda: to_kebab(text), number=number), "rust.to_kebab")
-    echo(
-        timeit(lambda: py_to_snake(text).replace("_", "-"), number=number),
-        "python.to_kebab",
-    )
+    snake_text = "hello_world" * 100
+    camel_text = "helloWorld" * 100
+    results = [
+        (
+            timeit(lambda: to_camel(snake_text), number=number),
+            "rust.to_camel",
+        ),
+        (
+            timeit(lambda: snake_to_camel(snake_text), number=number),
+            "python.c.snake_to_camel",
+        ),
+        (
+            timeit(lambda: pure_py_snake_to_camel(snake_text), number=number),
+            "python.pure_py_snake_to_camel",
+        ),
+        (
+            timeit(lambda: to_snake(camel_text), number=number),
+            "rust.to_snake",
+        ),
+        (
+            timeit(lambda: re_to_snake(camel_text), number=number),
+            "python.re.to_snake",
+        ),
+        (
+            timeit(lambda: to_kebab(camel_text), number=number),
+            "rust.to_kebab",
+        ),
+        (
+            timeit(lambda: re_to_snake(camel_text).replace("_", "-"), number=number),
+            "python.to_kebab",
+        ),
+    ]
+    for res, name in results:
+        print(res, name)  # noqa: T201
