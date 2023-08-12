@@ -1,9 +1,47 @@
+[build-system]
+requires = ["maturin>=1.2,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "casers"
+version = "0.6.0"
+description = "String case converter for Python written in Rust"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+license = {file = "LICENSE"}
+keywords = ["case", "rust", "convert cases"]
+readme = "README.md"
+authors = [{email = "daxartio@gmail.com"}, {name = "Danil Akhtarov"}]
+dependencies = []
+
+[project.optional-dependencies]
+pydantic = [
+    "pydantic>=1.7.4,<3.0.0",
+    "packaging>=23"
+]
+
+[project.urls]
+repository = "https://github.com/daxartio/casers"
+homepage = "https://pypi.org/project/casers"
+Changelog = "https://github.com/daxartio/casers/blob/main/CHANGELOG.md"
+
+[project.scripts]
+casers = 'casers.cli.app:run'
+
+[tool.maturin]
+module-name = "casers._casers"
+features = ["pyo3/extension-module"]
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "0.6.0"
 tag_format = "$version"
 version_files = [
-    "casers/_version.py",
+    "casers/__init__.py",
     "Cargo.toml:version",
     "pyproject.toml:version"
 ]
@@ -15,11 +53,6 @@ name = "casers"
 version = "0.6.0"
 description = ""
 authors = ["Danil Akhtarov <daxartio@gmail.com>"]
-license = "MIT"
-readme = "README.md"
-repository = "https://github.com/daxartio/casers"
-homepage = "https://pypi.org/project/casers"
-keywords = []
 
 [tool.poetry.scripts]
 casers = 'casers.cli.app:run'
@@ -31,52 +64,20 @@ packaging = {version = "^23.1", optional = true}
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
-mypy = "^1.1.1"
-maturin = "^0.14.17"
+mypy = "^1.4.1"
+maturin = "^1.2"
 pytest = "^7.2.2"
 pytest-asyncio = "^0.20.3"
 pytest-cov = "^4.0.0"
 pytest-deadfixtures = "^2.2.1"
 pytest-mock = "^3.10.0"
-ruff = "^0.0.255"
-toml = "^0.10.2"
+ruff = "^0.0.282"
 
 [tool.poetry.group.git.dependencies]
-commitizen = "^2.42.1"
+commitizen = "^3.5.3"
 
 [tool.poetry.extras]
-all = ["pydantic", "packaging"]
 pydantic = ["pydantic", "packaging"]
-
-[build-system]
-requires = ["poetry-core>=1.0.0", "maturin>=0.14,<0.15"]
-build-backend = "maturin"
-
-[project]
-name = "casers"
-requires-python = ">=3.7"
-classifiers = [
-    "Programming Language :: Rust",
-    "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy",
-]
-license = {file = "LICENSE"}
-readme = "README.md"
-authors = [
-  {email = "daxartio@gmail.com"},
-  {name = "Danil Akhtarov"}
-]
-
-[project.urls]
-repository = "https://github.com/daxartio/casers"
-homepage = "https://pypi.org/project/casers"
-
-[project.scripts]
-casers = 'casers.cli.app:run'
-
-[tool.maturin]
-module-name = "casers._casers"
-features = ["pyo3/extension-module"]
 
 [tool.mypy]
 check_untyped_defs = true
@@ -114,17 +115,24 @@ select = [
     "I",
     "N",
     "D",
+    # "UP",
     "YTT",
+    # "ANN",
     "S",
     "BLE",
+    # "FBT",
     "B",
     "A",
-    "C40",
+    "COM",
+    "C4",
     "DTZ",
     "T10",
     "EM",
+    "EXE",
     "ISC",
     "ICN",
+    "G",
+    "INP",
     "PIE",
     "T20",
     "PT",
@@ -132,9 +140,15 @@ select = [
     "RET",
     "SIM",
     "TID",
+    "TCH",
     "ARG",
+    "PTH",
     "ERA",
     "PD",
+    # "PGH",
+    "PL",
+    "TRY",
+    "RSE",
     "RUF",
 ]
 ignore = [
@@ -148,7 +162,6 @@ ignore = [
     "D107",
     "D203",
     "D213",
-    "EM101",
+    "S101",
 ]
-exclude = []
 extend-exclude = ["casers/_casers.pyi", "tests/*"]

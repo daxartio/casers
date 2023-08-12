@@ -17,16 +17,8 @@
 
 ## Installation
 
-### pip
-
 ```
 pip install casers
-```
-
-### poetry
-
-```
-poetry add casers
 ```
 
 ## Usage
