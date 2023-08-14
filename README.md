@@ -62,6 +62,10 @@ True
 
 ```
 
+## Benchmark
+
+![Benchmark](benches.png)
+
 ## License
 
 * [MIT LICENSE](LICENSE)

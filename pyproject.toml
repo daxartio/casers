@@ -76,6 +76,9 @@ ruff = "^0.0.282"
 [tool.poetry.group.git.dependencies]
 commitizen = "^3.5.3"
 
+[tool.poetry.group.bench.dependencies]
+plotly = "^5.16.0"
+
 [tool.poetry.extras]
 pydantic = ["pydantic", "packaging"]
 

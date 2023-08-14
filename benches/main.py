@@ -1,6 +1,11 @@
 import re
 from timeit import timeit
 
+try:
+    import plotly.graph_objects as go
+except ImportError:
+    go = None
+
 from casers import to_camel, to_kebab, to_snake
 
 
@@ -44,31 +49,56 @@ if __name__ == "__main__":
         (
             timeit(lambda: to_camel(snake_text), number=number),
             "rust.to_camel",
+            "red",
         ),
         (
             timeit(lambda: snake_to_camel(snake_text), number=number),
             "python.c.snake_to_camel",
+            "green",
         ),
         (
             timeit(lambda: pure_py_snake_to_camel(snake_text), number=number),
             "python.pure_py_snake_to_camel",
+            "blue",
         ),
         (
             timeit(lambda: to_snake(camel_text), number=number),
             "rust.to_snake",
+            "red",
         ),
         (
             timeit(lambda: re_to_snake(camel_text), number=number),
             "python.re.to_snake",
+            "blue",
         ),
         (
             timeit(lambda: to_kebab(camel_text), number=number),
             "rust.to_kebab",
+            "red",
         ),
         (
             timeit(lambda: re_to_snake(camel_text).replace("_", "-"), number=number),
             "python.to_kebab",
+            "blue",
         ),
     ]
-    for res, name in results:
+    for res, name, _ in results:
         print(res, name)  # noqa: T201
+
+    if go:
+        x = [name for _, name, _ in results]
+        y = [round(v, 2) for v, *_ in results]
+        color = [c for _, _, c in results]
+
+        fig = go.Figure(
+            data=[
+                go.Bar(
+                    x=x,
+                    y=y,
+                    marker_color=color,
+                    text=y,
+                    textposition="auto",
+                ),
+            ],
+        )
+        fig.show()

@@ -16,7 +16,7 @@ install-poetry:  ## Install poetry
 
 .PHONY: install
 install:  ## Install dependencies
-	poetry install -E pydantic
+	poetry install -E pydantic --without bench
 
 .PHONY: install-docs
 install-docs:  ## Install docs dependencies
