@@ -1,7 +1,7 @@
 from ._casers import to_camel, to_snake
 from ._extra import to_constant, to_kebab, to_pascal
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 
 to_param = to_kebab
 
