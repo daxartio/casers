@@ -16,7 +16,7 @@ install-poetry:  ## Install poetry
 
 .PHONY: install
 install:  ## Install dependencies
-	poetry install -E pydantic --without bench
+	poetry install -E pydantic
 
 .PHONY: install-docs
 install-docs:  ## Install docs dependencies
@@ -40,7 +40,7 @@ lint-rs:  ## Check Rust code
 
 .PHONY: test
 test:  ## Test with coverage
-	$(TEST) --cov=./
+	$(TEST) --ignore=benches --cov=./
 
 .PHONY: test-fast
 test-fast:  ## Test until error
@@ -79,4 +79,8 @@ clean:  ## Clean
 
 .PHONY: benchmark
 benchmark:  ## Benchmark
-	$(POETRY_RUN) python -m benches.main
+	$(TEST) benches/test_to_camel.py
+
+.PHONY: benchmark-all
+benchmark-all:  ## Benchmark all
+	$(TEST) benches
