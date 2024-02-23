@@ -4,6 +4,7 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/casers)](https://www.python.org/downloads/)
 [![GitHub last commit](https://img.shields.io/github/last-commit/daxartio/casers)](https://github.com/daxartio/casers)
 [![GitHub stars](https://img.shields.io/github/stars/daxartio/casers?style=social)](https://github.com/daxartio/casers)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/casers)
 
 ## Features
 
