@@ -48,7 +48,7 @@ True
 pip install "casers[pydantic]"
 ```
 
-The package supports for pydantic 1 and 2 versions
+The package supports for pydantic 2
 
 ```python
 >>> from casers.pydantic import CamelAliases
