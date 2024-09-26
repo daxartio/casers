@@ -62,7 +62,7 @@ fn to_snake(py: Python, s: &str) -> PyResult<String> {
 
 /// Casers package.
 #[pymodule]
-fn _casers(_py: Python, m: &PyModule) -> PyResult<()> {
+fn _casers(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(to_camel, m)?)?;
     m.add_function(wrap_pyfunction!(to_snake, m)?)?;
     Ok(())

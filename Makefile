@@ -50,21 +50,14 @@ test-fast:  ## Test until error
 test-failed:  ## Test failed
 	$(TEST) --last-failed
 
-.PHONY: test-report
-test-report:  ## Report testing
-	$(TEST) --cov --cov-report html
-	$(POETRY_RUN) python -m webbrowser 'htmlcov/index.html'
-
 .PHONY: lint
 lint:  ## Check code
-	$(POETRY_RUN) ruff $(CODE)
 	$(POETRY_RUN) black --check $(CODE)
 	$(POETRY_RUN) pytest --dead-fixtures --dup-fixtures
 	$(POETRY_RUN) mypy $(CODE)
 
 .PHONY: format
 format:  ## Formatting code
-	$(POETRY_RUN) ruff --fix-only $(CODE)
 	$(POETRY_RUN) black $(CODE)
 
 .PHONY: bump
