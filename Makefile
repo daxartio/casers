@@ -12,7 +12,7 @@ all: format lint test  ## Run format lint test
 
 .PHONY: install-poetry
 install-poetry:  ## Install poetry
-	pip install poetry
+	pip install poetry==1.8.5
 
 .PHONY: install
 install:  ## Install dependencies
