@@ -69,7 +69,7 @@ pydantic = {version = "^2", optional = true}
 [tool.poetry.group.dev.dependencies]
 black = "^24"
 maturin = "^1.8.1"
-mypy = "^1.11"
+mypy = "^1.14"
 pytest = "^8.3"
 pytest-benchmark = "^4.0.0"
 pytest-cov = "^5.0.0"
