@@ -2,6 +2,7 @@ use pyo3::prelude::*;
 
 /// Convert to camel case.
 #[pyfunction]
+#[inline(always)]
 fn to_camel(py: Python, s: &str) -> PyResult<String> {
     py.allow_threads(|| {
         let mut result = String::with_capacity(s.len());
@@ -23,6 +24,7 @@ fn to_camel(py: Python, s: &str) -> PyResult<String> {
 
 /// Convert to snake case.
 #[pyfunction]
+#[inline(always)]
 fn to_snake(py: Python, s: &str) -> PyResult<String> {
     py.allow_threads(move || {
         let mut result = String::with_capacity(s.len());
