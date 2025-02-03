@@ -2,20 +2,20 @@ use pyo3::prelude::*;
 
 /// Convert to camel case.
 #[pyfunction]
+#[inline(always)]
 fn to_camel(py: Python, s: &str) -> PyResult<String> {
-    py.allow_threads(move || {
+    py.allow_threads(|| {
         let mut result = String::with_capacity(s.len());
-        let mut capitalize_next = false;
-        for c in s.chars() {
-            if c == ' ' || c == '_' || c == '-' {
-                capitalize_next = true;
-            } else {
-                if capitalize_next {
-                    result.push(c.to_ascii_uppercase());
-                    capitalize_next = false;
-                } else {
-                    result.push(c.to_ascii_lowercase());
+        let mut s_iter = s.chars().peekable();
+        while let Some(c) = s_iter.next() {
+            match c {
+                ' ' | '_' | '-' => {
+                    if let Some(c_next) = s_iter.peek() {
+                        result.push(c_next.to_ascii_uppercase());
+                        s_iter.next();
+                    }
                 }
+                _ => result.push(c.to_ascii_lowercase()),
             }
         }
         Ok(result)
@@ -24,6 +24,7 @@ fn to_camel(py: Python, s: &str) -> PyResult<String> {
 
 /// Convert to snake case.
 #[pyfunction]
+#[inline(always)]
 fn to_snake(py: Python, s: &str) -> PyResult<String> {
     py.allow_threads(move || {
         let mut result = String::with_capacity(s.len());
