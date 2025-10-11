@@ -18,7 +18,7 @@ jobs:
           python-version: '3.14'
 
       - name: Install python dependencies
-        run: make install-poetry install
+        run: make install-uv install
 
       - name: Maturin
         run: make build-rs

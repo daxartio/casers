@@ -10,8 +10,8 @@ help: ## Show help
 .PHONY: all
 all: format lint test  ## Run format lint test
 
-.PHONY: install-poetry
-install-poetry:  ## Install uv
+.PHONY: install-uv
+install-uv:  ## Install uv
 	pip install uv
 
 .PHONY: install
