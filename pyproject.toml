@@ -1,6 +1,6 @@
 [project]
 name = "casers"
-version = "0.11.0"
+version = "0.11.1"
 description = "String case converter for Python written in Rust"
 authors = [
     { email = "daxartio@gmail.com" },
@@ -71,7 +71,7 @@ features = ["pyo3/extension-module"]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.11.0"
+version = "0.11.1"
 tag_format = "$version"
 version_files = [
     "casers/__init__.py",
