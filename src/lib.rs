@@ -4,7 +4,7 @@ use pyo3::prelude::*;
 #[pyfunction]
 #[inline(always)]
 fn to_camel(py: Python, s: &str) -> PyResult<String> {
-    py.allow_threads(|| {
+    py.detach(|| {
         let mut result = String::with_capacity(s.len());
         let mut s_iter = s.chars().peekable();
         while let Some(c) = s_iter.next() {
@@ -26,7 +26,7 @@ fn to_camel(py: Python, s: &str) -> PyResult<String> {
 #[pyfunction]
 #[inline(always)]
 fn to_snake(py: Python, s: &str) -> PyResult<String> {
-    py.allow_threads(move || {
+    py.detach(move || {
         let mut result = String::with_capacity(s.len());
         let mut upper_count = 0;
         let mut underscore_count = 0;

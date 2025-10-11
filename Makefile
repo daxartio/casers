@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 CODE = casers tests benches
-POETRY_RUN = poetry run
-TEST = $(POETRY_RUN) pytest $(args)
+UV_RUN = uv run
+TEST = $(UV_RUN) pytest $(args)
 
 .PHONY: help
 help: ## Show help
@@ -11,24 +11,20 @@ help: ## Show help
 all: format lint test  ## Run format lint test
 
 .PHONY: install-poetry
-install-poetry:  ## Install poetry
-	pip install poetry==1.8.5
+install-poetry:  ## Install uv
+	pip install uv
 
 .PHONY: install
 install:  ## Install dependencies
-	poetry install -E pydantic
-
-.PHONY: install-docs
-install-docs:  ## Install docs dependencies
-	poetry install --only docs
+	uv sync --extra pydantic
 
 .PHONY: publish
 publish:  ## Publish package
-	@$(POETRY_RUN) maturin upload
+	@$(UV_RUN) maturin upload
 
 .PHONY: build-rs
 build-rs:  ## Build .so files
-	$(POETRY_RUN) maturin develop
+	$(UV_RUN) maturin develop
 
 .PHONY: format-rs
 format-rs:  ## Formatting Rust code
@@ -52,17 +48,18 @@ test-failed:  ## Test failed
 
 .PHONY: lint
 lint:  ## Check code
-	$(POETRY_RUN) black --check $(CODE)
-	$(POETRY_RUN) pytest --dead-fixtures --dup-fixtures
-	$(POETRY_RUN) mypy $(CODE)
+	$(UV_RUN) ruff check $(CODE)
+	$(UV_RUN) ruff format --check $(CODE)
+	$(UV_RUN) pytest --dead-fixtures --dup-fixtures
+	$(UV_RUN) mypy $(CODE)
 
 .PHONY: format
 format:  ## Formatting code
-	$(POETRY_RUN) black $(CODE)
+	$(UV_RUN) ruff format $(CODE)
 
 .PHONY: bump
 bump:  ## Bump version (commit and tag)
-	$(POETRY_RUN) cz bump --major-version-zero
+	$(UV_RUN) cz bump --major-version-zero
 
 .PHONY: clean
 clean:  ## Clean
